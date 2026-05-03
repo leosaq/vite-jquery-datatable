@@ -2,7 +2,7 @@ import './style.css';
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-dt/css/dataTables.dataTables.css';
 
-const API_URL = "https://raw.githubusercontent.com/PlataformasWeb-P-AA2026/api-demo/main/db.json"
+const API_URL = "https://gist.githubusercontent.com/AnndresRodriguez/a4216e3f82f45fc4514dc954f967fe9a/raw/a41bf12c2e12cc5e2db88ee30b0d7d3ddaf3f6c2/models.json";
 
 async function cargarDatos() {
   try {
@@ -15,12 +15,16 @@ async function cargarDatos() {
     const datos = await respuesta.json();
 
     new DataTable('#tabla-posts', {
-      data: datos,
+      data: datos.marcas,
       columns: [
-        { data: 'AMIE' },
-        { data: 'Nombre-Educativa' },
-        { data: 'Canton' },
-        { data: 'Parroquia' }
+        { data: 'id' },
+        { data: 'nombre' },
+        {
+          data: 'modelos',
+          render: function (modelos) {
+            return modelos.join(', ');
+          }
+        }
       ],
       pageLength: 10,
       language: {
